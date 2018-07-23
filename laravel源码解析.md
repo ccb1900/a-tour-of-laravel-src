@@ -1,0 +1,87 @@
+- 获取Application实例
+    - 注册$basePath
+        - 调用instance绑定路径到容器(比如语言路径，视图路径，配置路径等)
+    - 注册基础绑定
+        - 绑定Application实例到容器实例
+        - 调用instance绑定Application实例到app
+        - 调用instance绑定Application实例到Container::class
+        - 调用instance绑定PackageManifest到容器
+    - 注册serviceprovider
+        - 注册了三个
+            - 事件new EventServiceProvider($this)
+            - 日志new LogServiceProvider($this)
+            - 路由new RoutingServiceProvider($this)
+        - 检查serviceprovider是否已经注册到Application实例
+        - 检查serviceprovider是否存在register，存在则执行。
+        - 检查serviceprovider是否有bindings属性，存在则使用bind注册到容器
+        - 检查serviceprovider是否有singletons属性，存在则使用singleton注册到容器
+        - 标记为已注册到Application实例
+        - 如果Application已启动，则执行serviceprovider存在的boot方法
+    - 注册alias
+        - 调用容器alias注册
+- 使用singleton注册kernel单例，类型为绑定接口到实现
+- 使用singleton注册Console单例，类型为绑定接口到实现
+- 使用singleton注册异常处理器单例，类型为绑定接口到实现
+- 使用容器make获取kernel实例
+    - 使用容器注入Application实例，Router实例
+    - 处理路由中间件。将kernel的中间件和和中间件组注册到路由对象
+- 获取请求
+    - 开启http方法参数重写，支持_method参数。CSRF.
+    - 这里symfony的request对象
+- kernel处理抓取的请求
+    - 正常响应1
+        - 开启参数重写
+        - 发送请求到路由
+            - 调用容器instance获取request对象
+            - 清除已解析request
+            - 启动
+                - 触发开始启动事件
+                - 解析kernel的bootstrappers数组中的类(make获取实例后调用bootstrap方法)
+                    - LoadEnvironmentVariables，加载环境变量
+                        - 默认的.env实际上被设置为.env.local了
+                        - 如果是cli模式可以通过--env指定扩展名比如example，local，dev等等
+                        - 设置环境变量路径
+                        - 使用DotEnv处理，也就是将.env的配置保存到$_ENV和$_SERVER数组
+                    - LoadConfiguration，加载配置项
+                        - 检查缓存
+                        - 调用instance注册Repository对象到容器
+                        - 加载配置文件
+                            - 如果没有app.php将会抛异常
+                            - 获取配置文件列表，并保存到Repository
+                        - 检测环境变量
+                        - 设置时区
+                        - 调用mb_internal_encoding设置编码
+                    - HandleExceptions，处理异常
+                        - error_reporting(-1);
+                        - set_error_handler([$this, 'handleError']);
+                        - set_exception_handler([$this, 'handleException']);
+                        - register_shutdown_function([$this, 'handleShutdown']);
+                        - ini_set('display_errors', 'Off');
+                    - RegisterFacades，注册facades
+                    - RegisterProviders，注册providers
+                        - 注册配置文件app.providers中的service-provider
+                        - 调用service-provider的register方法
+                    - BootProviders，启动providers
+                        - 调用的service-provider的boot方法
+                - 触发启动完成事件
+            - 注册请求到request
+            - 分发请求到路由
+                - 根据request匹配路由，
+                - 调用instance注册当前路由
+                - 触发路由匹配事件
+                - 处理中间件
+                - 匹配控制器
+    - 异常响应
+        - 报告异常
+        - 渲染异常
+    - Throwable
+        - 报告
+        - 渲染
+    - dispatch请求处理事件
+    - 返回响应
+- 返回响应
+- kernel处理返回响应后的逻辑
+# 问题
+- 抽象类为何存在
+- 中间件等还未剖析完成
+- Facades
