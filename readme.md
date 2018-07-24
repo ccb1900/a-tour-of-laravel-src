@@ -18,3 +18,6 @@
 - 依赖注入
 # 其他
 - [自动加载实现](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/autoload)
+- [后期静态绑定](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/static.php)
+- [一些函数用法](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/func.php)
+- [错误处理](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/error.php)
