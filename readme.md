@@ -1,6 +1,7 @@
 # laravel源码解析
 - 框架启动
 - [redis](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/redis.md)
+- [事件](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/事件.md)
 - 会话
 - 文件系统
 - 日志

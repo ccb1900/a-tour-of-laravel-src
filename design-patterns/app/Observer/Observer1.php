@@ -1,14 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: guojianhang
+ * User: ccb
  * Date: 2018/7/24
  * Time: 21:01
  */
 namespace App\Observer;
 use SplSubject;
 
-class Observer implements \SplObserver
+class Observer1 implements \SplObserver
 {
 
     /**
@@ -26,4 +26,5 @@ class Observer implements \SplObserver
     public function update(SplSubject $subject)
     {
         // TODO: Implement update() method.
+        print_r($subject);
 }}
