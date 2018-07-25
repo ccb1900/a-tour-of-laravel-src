@@ -21,3 +21,8 @@
 - [后期静态绑定](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/static.php)
 - [一些函数用法](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/func.php)
 - [错误处理](https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/error.php)
+# 备注
+- 避免陷入描述怎么用的情况
+- 分析源码设计模式
+- 如何扩展
+- 怎么实现
