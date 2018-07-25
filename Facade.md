@@ -1,7 +1,7 @@
 # 设计模式
 ### 代理
 ### 外观
-- 分不清楚。
+- 有点不伦不类。
 # 例子
 代理
 ```
@@ -56,6 +56,9 @@ Artisan::command('test:facade', function () {
 - 已经解析的会从$resolvedInstance直接获取，没有解析的会获取容器绑定并注册到$resolvedInstance
 - getFacadeAccessor可以返回对象，但是不会被注册到$resolvedInstance。这是因为$resolvedInstance的元素都是不可变的。
 - 调用实例的test方法
+# 问题
+- 如果返回的是对象，每次访问获取的都是新的实例。
+- 依赖于容器的实现，返回是单例还是非单例。
 # 简单实现
 https://git.itiswho.com/ccb/a-tour-of-laravel-src/src/master/examples/facade.php
 
